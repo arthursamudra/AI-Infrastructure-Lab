@@ -10,10 +10,7 @@
 }
 
 *{box-sizing:border-box}
-
-/* ✅ FIX: stop right-side trimming / horizontal overflow */
-html,body{height:100%; max-width:100%; overflow-x:hidden}
-
+html,body{height:100%}
 body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -96,15 +93,13 @@ body{
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(255,255,255,.12);
   box-shadow: 0 14px 40px rgba(0,0,0,.45);
-  overflow:hidden; /* keep */
+  overflow:hidden;
 }
 .tokenTrack__svg{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
-  max-width:100%;
-  overflow:hidden;
 }
 .tokenTrack__pathGlow{
   stroke: rgba(255,255,255,.18);
@@ -376,16 +371,10 @@ li{margin:8px 0}
   color: rgba(233,238,248,.68);
 }
 
-/* ✅ MOBILE: prevent overflow by removing vw-based widths */
 @media (max-width: 980px){
   .hud__panel{display:none}
   .narration{display:none}
-
-  /* ✅ critical: stop right-side trimming */
-  .progress{width:100%}
-  .card__inner{width:100%; max-width:100%}
-  .tokenTrack{width:100%; max-width:100%}
-
+  .tokenTrack{width: 92vw}
   h1{font-size:36px}
   h2{font-size:30px}
   .split{grid-template-columns:1fr}
