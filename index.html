@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Token Journey — Infinite–SuperMax Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top progress + chapter label -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand__dot"></div>
+      <div class="brand__text">
+        <div class="brand__title">Token Journey</div>
+        <div class="brand__sub">Infinite–SuperMax AI Infrastructure Intelligence Lab</div>
+      </div>
+    </div>
+
+    <div class="progress">
+      <div class="progress__label" id="chapterLabel">01 · What Happens After a Token Is Billed?</div>
+      <div class="progress__rail">
+        <div class="progress__fill" id="progressFill"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Curved token path + narration controls -->
+  <section class="trackbar" aria-label="Token Path and Narration Controls">
+    <div class="trackbar__inner">
+      <div class="tokenTrack" id="tokenTrack">
+        <!-- Curved path SVG -->
+        <svg class="tokenTrack__svg" id="trackSvg" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+          <!-- Rail -->
+          <path id="trackPath"
+                d="M 30 70 C 210 20, 380 110, 520 55 S 820 20, 970 65"
+                fill="none" />
+          <!-- Glow outline -->
+          <path class="tokenTrack__pathGlow"
+                d="M 30 70 C 210 20, 380 110, 520 55 S 820 20, 970 65"
+                fill="none" />
+          <!-- Main stroke -->
+          <path class="tokenTrack__path"
+                d="M 30 70 C 210 20, 380 110, 520 55 S 820 20, 970 65"
+                fill="none" />
+          <!-- Tick markers are injected into this group -->
+          <g id="trackMarkers"></g>
+        </svg>
+
+        <!-- Token that moves along the curve -->
+        <div class="trackToken" id="trackToken" aria-label="Token position">
+          <div class="trackToken__core"></div>
+          <div class="trackToken__ring"></div>
+        </div>
+      </div>
+
+      <div class="narration">
+        <div class="narration__title">Guided Tour</div>
+        <div class="narration__controls">
+          <button class="btn" id="btnPlay" type="button">Play narration</button>
+          <button class="btn" id="btnPause" type="button" disabled>Pause</button>
+          <button class="btn" id="btnResume" type="button" disabled>Resume</button>
+          <button class="btn btn-ghost" id="btnStop" type="button" disabled>Stop</button>
+        </div>
+        <div class="narration__hint" id="ttsHint">
+          Click Play, then relax — it will auto-advance section by section.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HUD -->
+  <aside class="hud">
+    <div class="token" id="token">
+      <div class="token__core"></div>
+      <div class="token__ring"></div>
+      <div class="token__label" id="tokenLabel">TOKEN</div>
+    </div>
+
+    <div class="hud__panel">
+      <div class="hud__title">Live Footprint</div>
+      <div class="hud__rows">
+        <div class="hud__row"><span>Stage</span><span id="hudStage">—</span></div>
+        <div class="hud__row"><span>Visibility</span><span id="hudVisibility">—</span></div>
+        <div class="hud__row"><span>Cost-to-serve</span><span id="hudCost">—</span></div>
+      </div>
+      <div class="hud__hint">Guided tour + scroll</div>
+    </div>
+  </aside>
+
+  <!-- Main narrative -->
+  <main class="deck" id="deck">
+    <!-- 01 -->
+    <section class="card" data-chapter="01" data-title="What Happens After a Token Is Billed?"
+      data-token="invisible" data-stage="Billing" data-visibility="Low" data-cost="Unknown">
+      <div class="card__inner">
+        <h1>What Happens After a Token Is Billed?</h1>
+        <p class="lead">
+          Platforms like IBM bill customers in tokens. But what actually happens to a token after it’s billed?
+        </p>
+        <div class="viz">
+          <div class="pipe">
+            <div class="node">Request</div>
+            <div class="arrow">→</div>
+            <div class="node strong">watsonx</div>
+            <div class="arrow">→</div>
+            <div class="node">GPU Pool</div>
+            <div class="arrow">→</div>
+            <div class="node">Bill</div>
+          </div>
+          <div class="caption">Today, the story often ends at “tokens used”.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="card" data-chapter="02" data-title="Before the Lab: The Invisible Token"
+      data-token="invisible" data-stage="Execution" data-visibility="Low" data-cost="Averaged">
+      <div class="card__inner">
+        <h2>Before the Lab: The Invisible Token</h2>
+        <p class="lead">
+          A token enters the platform, gets processed, and the customer is billed. The physical reality—energy, cooling, true cost—is largely invisible.
+        </p>
+        <div class="viz">
+          <div class="split">
+            <div class="pane">
+              <div class="pane__title">Platform sees</div>
+              <ul><li>Tokens</li><li>Latency</li><li>Billing</li></ul>
+            </div>
+            <div class="pane muted">
+              <div class="pane__title">Platform doesn’t see</div>
+              <ul><li>Energy per answer</li><li>Cooling overhead</li><li>Thermal stress</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="card" data-chapter="03" data-title="What the Platform Knows Today"
+      data-token="invisible" data-stage="Observability" data-visibility="Partial" data-cost="Estimated">
+      <div class="card__inner">
+        <h2>What the Platform Knows Today</h2>
+        <p class="lead">
+          Most platforms can report token counts and response time. But they can’t tell if the token was cheap or expensive to produce.
+        </p>
+        <div class="viz">
+          <div class="checkgrid">
+            <div class="check ok">Tokens used ✓</div>
+            <div class="check ok">Latency ✓</div>
+            <div class="check ok">Price charged ✓</div>
+            <div class="check no">True cost-to-serve ✕</div>
+            <div class="check no">Cooling overhead ✕</div>
+            <div class="check no">Thermal stability ✕</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="card" data-chapter="04" data-title="The Blind Spot"
+      data-token="warning" data-stage="Risk" data-visibility="Low" data-cost="Uncontrolled">
+      <div class="card__inner">
+        <h2>The Blind Spot</h2>
+        <p class="lead">
+          Two requests can be billed similarly, yet one silently consumes far more energy and cooling—eroding margins and stressing infrastructure.
+        </p>
+        <div class="viz">
+          <div class="bars">
+            <div class="bar">
+              <div class="bar__label">Token A</div>
+              <div class="bar__track"><div class="bar__fill" style="width:42%"></div></div>
+              <div class="bar__hint">lower physical cost</div>
+            </div>
+            <div class="bar">
+              <div class="bar__label">Token B</div>
+              <div class="bar__track"><div class="bar__fill warn" style="width:78%"></div></div>
+              <div class="bar__hint">higher energy + cooling</div>
+            </div>
+          </div>
+          <div class="caption">Same billing unit. Different physical reality.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="card" data-chapter="05" data-title="Enter the Infinite–SuperMax Lab"
+      data-token="measured" data-stage="Measurement" data-visibility="High" data-cost="Measurable">
+      <div class="card__inner">
+        <h2>Enter the Infinite–SuperMax Lab</h2>
+        <p class="lead">
+          The lab connects AI semantics (tokens, context, workload type) to infrastructure physics (power, thermals, cooling).
+        </p>
+        <div class="viz">
+          <div class="pipe">
+            <div class="node strong">Platform</div>
+            <div class="arrow">→</div>
+            <div class="node">Decision Layer</div>
+            <div class="arrow">→</div>
+            <div class="node strong">Compute</div>
+            <div class="arrow">→</div>
+            <div class="node">Cooling</div>
+            <div class="arrow">→</div>
+            <div class="node strong">Measured Truth</div>
+          </div>
+          <div class="caption">The token journey no longer ends at “billed”.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="card" data-chapter="06" data-title="After the Lab: The Observable Token"
+      data-token="routing" data-stage="Routing" data-visibility="High" data-cost="Selectable">
+      <div class="card__inner">
+        <h2>After the Lab: The Observable Token</h2>
+        <p class="lead">
+          Before execution, a lightweight decision layer routes each request to the best compute pool based on its needs.
+        </p>
+        <div class="viz">
+          <div class="routes">
+            <div class="route"><div class="route__name">Low-latency pool</div><div class="route__desc">Interactive, time-critical</div></div>
+            <div class="route"><div class="route__name">Energy-efficient pool</div><div class="route__desc">Batch, non-urgent</div></div>
+            <div class="route"><div class="route__name">Sustainability-first pool</div><div class="route__desc">Minimize footprint</div></div>
+          </div>
+          <div class="caption">Same model logic. Smarter placement.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section class="card" data-chapter="07" data-title="What the Platform Learns"
+      data-token="measured" data-stage="Insight" data-visibility="High" data-cost="Known">
+      <div class="card__inner">
+        <h2>What the Platform Learns</h2>
+        <p class="lead">
+          Tokens stop being abstract. They gain a physical footprint: energy consumed, cooling overhead, and stability under load.
+        </p>
+        <div class="viz">
+          <div class="metricgrid">
+            <div class="metric"><div class="metric__k">Energy</div><div class="metric__v">per answer</div></div>
+            <div class="metric"><div class="metric__k">Cooling</div><div class="metric__v">overhead</div></div>
+            <div class="metric"><div class="metric__k">Thermals</div><div class="metric__v">stability</div></div>
+            <div class="metric"><div class="metric__k">Cost</div><div class="metric__v">to serve</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 (NEW) -->
+    <section class="card" data-chapter="08" data-title="Measured Proof Moment"
+      data-token="measured" data-stage="Evidence" data-visibility="High" data-cost="Measured">
+      <div class="card__inner">
+        <h2>Measured Proof Moment</h2>
+        <p class="lead">
+          One simple takeaway: tokens that look identical in billing can have very different physical cost-to-serve.
+          The lab makes that measurable.
+        </p>
+
+        <div class="viz">
+          <div class="proof">
+            <div class="proof__tile">
+              <div class="proof__k">Energy per request</div>
+              <div class="proof__v">Lower vs Higher</div>
+              <div class="proof__s">same token price today</div>
+            </div>
+            <div class="proof__tile">
+              <div class="proof__k">Cooling overhead</div>
+              <div class="proof__v">Air vs Liquid</div>
+              <div class="proof__s">benefit depends on load</div>
+            </div>
+            <div class="proof__tile">
+              <div class="proof__k">Latency trade-off</div>
+              <div class="proof__v">Interactive vs Batch</div>
+              <div class="proof__s">route by intent</div>
+            </div>
+          </div>
+
+          <div class="caption">
+            Replace these placeholders with your real numbers when ready — keep it to 3 tiles to stay executive-friendly.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 -->
+    <section class="card" data-chapter="09" data-title="Why This Matters for IBM"
+      data-token="ibm" data-stage="Platform" data-visibility="High" data-cost="Optimizable">
+      <div class="card__inner">
+        <h2>Why This Matters for IBM</h2>
+        <p class="lead">
+          IBM can test platform knobs (context size, RAG depth, model class) and see real cost-to-serve—then improve defaults and offerings.
+        </p>
+        <div class="viz">
+          <div class="steps">
+            <div class="step"><div class="step__n">1</div><div class="step__t">Test configurations</div></div>
+            <div class="step"><div class="step__n">2</div><div class="step__t">Measure footprint</div></div>
+            <div class="step"><div class="step__n">3</div><div class="step__t">Update defaults</div></div>
+            <div class="step"><div class="step__n">4</div><div class="step__t">Differentiate offers</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="card" data-chapter="10" data-title="Before vs After Pricing"
+      data-token="pricing" data-stage="Monetization" data-visibility="High" data-cost="Aligned">
+      <div class="card__inner">
+        <h2>Before vs After Pricing</h2>
+        <p class="lead">
+          Tokens remain the unit customers understand—but pricing becomes evidence-backed: aligned to true cost-to-serve.
+        </p>
+        <div class="viz">
+          <div class="split">
+            <div class="pane">
+              <div class="pane__title">Before</div>
+              <ul><li>One token price</li><li>Cost averaged</li><li>Hidden margin risk</li></ul>
+            </div>
+            <div class="pane strong">
+              <div class="pane__title">After</div>
+              <ul><li>Profiles / tiers</li><li>Measured cost-to-serve</li><li>Premium + green options</li></ul>
+            </div>
+          </div>
+          <div class="caption">Token economics become a strategic lever.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="card" data-chapter="11" data-title="The Real Shift"
+      data-token="decision" data-stage="Decision Unit" data-visibility="High" data-cost="Governed">
+      <div class="card__inner">
+        <h2>The Real Shift</h2>
+        <p class="lead">
+          Tokens become more than billing. They become a decision unit guiding routing, defaults, and monetization—grounded in physical truth.
+        </p>
+        <div class="viz">
+          <div class="bigquote">
+            “We didn’t just measure energy per token. We revealed what it takes to produce intelligence—one token at a time.”
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="card" data-chapter="12" data-title="Closing"
+      data-token="closing" data-stage="Closing" data-visibility="High" data-cost="Actionable">
+      <div class="card__inner">
+        <h2>Closing</h2>
+        <p class="lead">
+          The lab doesn’t just report usage. It turns platform design into measured, optimizable, and monetizable reality.
+        </p>
+        <div class="viz">
+          <div class="cta">
+            <div class="cta__title">Next: “How IBM runs this in the lab”</div>
+            <div class="cta__sub">A concrete walkthrough of tests, measurements, and platform actions.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
